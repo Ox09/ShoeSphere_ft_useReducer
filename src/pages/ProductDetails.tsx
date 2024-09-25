@@ -23,7 +23,7 @@ export default function ProductDetails() {
   const isInCart = state.cartItems?.some(
     (i: CartItems) => i.id === selectedDetalis.id
   );
-  console.log(product?.id, Number(productId));
+
   return (
     <div className="p-6 pb-28 h-full overflow-y-auto">
       <div className="flex items-center mb-4" onClick={() => navigate(-1)}>
@@ -50,12 +50,13 @@ export default function ProductDetails() {
           }}
           className="flex space-x-2"
         >
-          {product?.colors?.map((color: string) => (
-            <div key={color} className="flex items-center space-x-2">
-              <RadioGroupItem value={color} id={`color-${color}`} />
-              <Label htmlFor={`color-${color}`}>{color}</Label>
-            </div>
-          ))}
+          {Array.isArray(product.colors) &&
+            product?.colors?.map((color: string) => (
+              <div key={color} className="flex items-center space-x-2">
+                <RadioGroupItem value={color} id={`color-${color}`} />
+                <Label htmlFor={`color-${color}`}>{color}</Label>
+              </div>
+            ))}
         </RadioGroup>
       </div>
 
@@ -70,21 +71,22 @@ export default function ProductDetails() {
           }}
           className="flex flex-wrap gap-2"
         >
-          {product?.sizes?.map((size: string) => (
-            <div key={size} className="flex items-center">
-              <RadioGroupItem
-                value={size}
-                id={`size-${size}`}
-                className="peer sr-only"
-              />
-              <Label
-                htmlFor={`size-${size}`}
-                className="px-3 py-2 rounded-md border border-gray-200 cursor-pointer  peer-data-[state=checked]:bg-orange-200 peer-data-[state=checked]:text-red-600"
-              >
-                {size}
-              </Label>
-            </div>
-          ))}
+          {Array.isArray(product.sizes) &&
+            product?.sizes?.map((size: string) => (
+              <div key={size} className="flex items-center">
+                <RadioGroupItem
+                  value={size}
+                  id={`size-${size}`}
+                  className="peer sr-only"
+                />
+                <Label
+                  htmlFor={`size-${size}`}
+                  className="px-3 py-2 rounded-md border border-gray-200 cursor-pointer  peer-data-[state=checked]:bg-orange-200 peer-data-[state=checked]:text-red-600"
+                >
+                  {size}
+                </Label>
+              </div>
+            ))}
         </RadioGroup>
       </div>
 
