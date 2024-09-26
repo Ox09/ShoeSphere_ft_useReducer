@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { Star, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { useParams, useNavigate } from "react-router-dom";
 import useStore, { CartItems } from "@/hooks/useStore";
 import { cardData } from "@/data/data";
 
@@ -28,7 +28,7 @@ export default function ProductDetails() {
     <div className="p-6 pb-28 h-full overflow-y-auto">
       <div className="flex items-center mb-4" onClick={() => navigate(-1)}>
         <ArrowLeft className="w-6 h-6 text-gray-600 cursor-pointer" />
-        <h2 className="text-lg font-semibold ml-4">Product Details</h2>
+        <h2 className="text-base font-semibold ml-4">Product Details</h2>
       </div>
 
       <div className="mb-6">
@@ -40,7 +40,7 @@ export default function ProductDetails() {
       </div>
 
       <div className="mb-4">
-        <h3 className="text-lg font-semibold mb-2">Select Color:</h3>
+        <h3 className="text-base font-semibold mb-2">Select Color:</h3>
         <RadioGroup
           defaultValue={product?.colors?.[0]}
           onValueChange={(val) => {
@@ -48,7 +48,7 @@ export default function ProductDetails() {
               (prev) => ({ ...prev, colors: val } as CartItems)
             );
           }}
-          className="flex space-x-2"
+          className="flex flex-wrap"
         >
           {Array.isArray(product.colors) &&
             product?.colors?.map((color: string) => (
@@ -61,7 +61,7 @@ export default function ProductDetails() {
       </div>
 
       <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-2">Select Size:</h3>
+        <h3 className="text-base font-semibold mb-2">Select Size:</h3>
         <RadioGroup
           defaultValue={selectedDetalis.sizes?.[0]}
           onValueChange={(val) => {
@@ -115,14 +115,14 @@ export default function ProductDetails() {
 
       {isInCart ? (
         <Button
-          className="w-full py-3 text-lg font-semibold"
+          className="w-full py-3 text-base font-semibold"
           onClick={() => navigate("/cart")}
         >
           Check out
         </Button>
       ) : (
         <Button
-          className="w-full py-3 text-lg font-semibold"
+          className="w-full py-3 text-base font-semibold"
           onClick={() =>
             dispatch({
               type: "toggleCartItem",

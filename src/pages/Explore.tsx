@@ -1,10 +1,11 @@
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { Heart } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import useStore from "@/hooks/useStore";
-import { Link } from "react-router-dom";
-import { Heart } from "lucide-react";
 import { cardData } from "@/data/data";
 
 const cardVariants = (isLeftColumn: boolean) => ({
@@ -51,7 +52,7 @@ export default function Explore() {
   const filteredCards = cardData.filter((card) => card.gender === activeGender);
 
   return (
-    <div className="p-4 h-screen">
+    <div className="p-4 h-full">
       <h1 className="text-2xl font-semibold mb-4">Discover products</h1>
       <div className="flex space-x-4 mb-6">
         {genderFilters.map((gender) => (
@@ -91,7 +92,7 @@ export default function Explore() {
                   exit="exit"
                   transition={{ duration: 0.5 }}
                 >
-                  <Card className=" relative w-44 h-72  overflow-hidden select-none cursor-pointer shadow-lg">
+                  <Card className=" relative w-full h-64  overflow-hidden select-none cursor-pointer shadow-lg">
                     <Button
                       className="absolute right-3 top-3 rounded-full bg-[#fff] p-2 flex items-center gap-2"
                       onClick={() =>
@@ -105,15 +106,19 @@ export default function Explore() {
                         color={isFavourite ? "#ff345d" : "#585858"}
                       />
                     </Button>{" "}
-                    <Link to={`/${card.id}`} state={{ product: card }}>
+                    <Link
+                      to={`/${card.id}`}
+                      state={{ product: card }}
+                      className="block h-full"
+                    >
                       <img
                         src={card.imgSrc}
                         alt={`Product ${card.id}`}
-                        className="h-48 w-full object-cover rounded-[20px] p-2"
+                        className="h-40 w-full object-cover rounded-[20px] p-2"
                       />
                       <div className="px-4 ">
-                        <p className="text-lg font-semibold">${card.price}</p>
-                        <p className="text-base leading-5 font-medium text-gray-500">
+                        <p className="text-base font-semibold">${card.price}</p>
+                        <p className="text-sm leading-5 font-medium text-gray-500">
                           {card.description}
                         </p>
                       </div>

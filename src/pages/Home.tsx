@@ -1,10 +1,14 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Heart, Minus, Plus, ShoppingCart, Trash } from "lucide-react";
+
 import { Card } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,11 +16,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import { Heart, Minus, Plus, ShoppingCart, Trash } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
+
 import useStore from "@/hooks/useStore";
-import { Link } from "react-router-dom";
 import { cardData } from "@/data/data";
 
 const bgImgSrc = [
@@ -76,7 +78,7 @@ export default function Home() {
               className="w-10 h-10 rounded-full mr-2"
             />
             <div>
-              <h2 className="text-lg font-bold">Paul Martine</h2>
+              <h2 className="text-base font-bold">Paul Martine</h2>
               <span className="text-sm text-gray-500">Premium</span>
             </div>
           </div>
@@ -85,10 +87,12 @@ export default function Home() {
               <Button className="rounded-[18px] bg-[#fff] p-2 flex items-center gap-2">
                 <ShoppingCart color="#404040" className="w-5 h-5" />
 
-                <span className="text-[#404040] text-xl">{state.cartItems.length}</span>
+                <span className="text-[#404040] text-xl">
+                  {state.cartItems.length}
+                </span>
               </Button>
             </DialogTrigger>
-            <DialogContent className="absolute right-4 top-4 h-[90%] -translate-y-0  w-full max-w-[380px] overflow-y-auto rounded-lg bg-white shadow-xl sm:right-8 sm:top-8">
+            <DialogContent className="absolute right-4 top-4 h-[80%] translate-y-3  w-full max-w-72 overflow-y-auto rounded-lg bg-white shadow-xl sm:right-8 sm:top-8">
               <DialogTitle className="hidden"></DialogTitle>
               <div className="mt-4 space-y-4">
                 {state?.cartItems.length > 0 ? (
@@ -111,8 +115,10 @@ export default function Home() {
                           />
                         </div>
                         <div className="flex-1">
-                          <h3 className="font-semibold">{item.description}</h3>
-                          <p className="font-bold">${item.price}</p>
+                          <h3 className="text-sm font-semibold">
+                            {item.description}
+                          </h3>
+                          <p className="text-sm font-bold">${item.price}</p>
                         </div>
                       </div>
                       <div className="flex gap-3 justify-end">
@@ -151,7 +157,7 @@ export default function Home() {
                     </motion.div>
                   ))
                 ) : (
-                  <div className="flex items-center justify-center gap-2 text-gray-500 text-lg ">
+                  <div className="flex items-center justify-center gap-2 text-gray-500 text-base ">
                     Your cart is empty !
                   </div>
                 )}
@@ -166,7 +172,7 @@ export default function Home() {
             </DialogContent>
           </Dialog>
         </header>
-        <div className="relative pt-24">
+        <div className="relative pt-16">
           <h1 className="mt-6 text-4xl text-white font-bold">
             The Ultimate Collection
           </h1>
@@ -192,7 +198,7 @@ export default function Home() {
                   className="flex justify-center basis-auto"
                 >
                   {" "}
-                  <Card className=" relative w-44 h-72  overflow-hidden select-none cursor-pointer shadow-lg">
+                  <Card className=" relative w-[8.5rem] h-64  overflow-hidden select-none cursor-pointer shadow-lg">
                     <Button
                       className="absolute right-3 top-3 rounded-full bg-[#fff] p-2 flex items-center gap-2"
                       onClick={() =>
@@ -205,19 +211,23 @@ export default function Home() {
                         fill={isFavourite ? "#ff345d" : "transparent"}
                         color={isFavourite ? "#ff345d" : "#585858"}
                       />
-                    </Button>
-                    <Link to={`/${card.id}`} state={{ product: card }}>
+                    </Button>{" "}
+                    <Link
+                      to={`/${card.id}`}
+                      state={{ product: card }}
+                      className="block h-full"
+                    >
                       <img
                         src={card.imgSrc}
                         alt={`Product ${card.id}`}
-                        className="h-48 w-full object-cover rounded-[20px] p-2"
+                        className="h-40 w-full object-cover rounded-[20px] p-2"
                       />
                       <div className="px-4 ">
-                        <p className="text-lg font-semibold">${card.price}</p>
-                        <p className="text-base leading-5 font-medium text-gray-500">
+                        <p className="text-base font-semibold">${card.price}</p>
+                        <p className="text-sm leading-5 font-medium text-gray-500">
                           {card.description}
                         </p>
-                      </div>{" "}
+                      </div>
                     </Link>
                   </Card>
                 </CarouselItem>
